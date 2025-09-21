@@ -1,0 +1,3 @@
+# Python dependencies for Render deployment
+# This project uses Python standard library only
+# No external dependencies required

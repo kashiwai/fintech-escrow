@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: fintech-escrow
+    runtime: python
+    buildCommand: "pip install -e ."
+    startCommand: "python -m src.app.web_server"
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: DB_PATH
+        value: /app/data/fintech.db
+      - key: AUDIT_LOG_PATH
+        value: /app/data/audit.log
+    disk:
+      name: fintech-data
+      mountPath: /app/data
+      sizeGB: 1
