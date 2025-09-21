@@ -1,10 +1,12 @@
 import os
 
 
-# Render環境ではプロジェクトディレクトリ内にDBを配置
+# Render環境では永続ディスクを使用
 if os.environ.get('RENDER'):
-    # Renderでは/opt/render/project/srcがワーキングディレクトリ
-    DB_PATH = "/opt/render/project/src/fintech.db"
+    # 有料版では/render/dataにマウントされたディスクを使用
+    DB_DIR = "/render/data"
+    os.makedirs(DB_DIR, exist_ok=True)
+    DB_PATH = os.path.join(DB_DIR, "fintech.db")
 else:
     DB_PATH = os.getenv("DB_PATH", os.path.abspath("./fintech.db"))
 WEBHOOK_SECRET = os.getenv("WEBHOOK_SECRET", "dev_secret")
@@ -21,7 +23,8 @@ SIM_NETWORK_FEE_USDT = float(os.getenv("SIM_NETWORK_FEE_USDT", "1.0"))
 
 # Reports output dir
 if os.environ.get('RENDER'):
-    REPORTS_DIR = "/opt/render/project/src/reports"
+    REPORTS_DIR = "/render/data/reports"
+    os.makedirs(REPORTS_DIR, exist_ok=True)
 else:
     REPORTS_DIR = os.getenv("REPORTS_DIR", os.path.abspath("./reports"))
 
