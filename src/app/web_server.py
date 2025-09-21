@@ -1905,6 +1905,17 @@ def run_server(port=8080):
 if __name__ == "__main__":
     import sys
     import os
+    from .db import init_db
+    from .config import DB_PATH
+
+    # DBが存在しない場合は初期化
+    if not os.path.exists(DB_PATH):
+        print(f"🔄 データベースが見つかりません。初期化中...")
+        init_db()
+        print(f"✅ データベースを初期化しました: {DB_PATH}")
+    else:
+        print(f"✅ データベースが見つかりました: {DB_PATH}")
+
     # Renderの環境変数PORTを優先的に使用
     port = int(os.environ.get('PORT', sys.argv[1] if len(sys.argv) > 1 else 10000))
     run_server(port)

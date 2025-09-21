@@ -2,7 +2,7 @@ services:
   - type: web
     name: fintech-escrow
     runtime: python
-    buildCommand: "python -m pip install --upgrade pip && python init_db.py"
+    buildCommand: "python -m pip install --upgrade pip && python render_init.py"
     startCommand: "python -m src.app.web_server"
     envVars:
       - key: PORT
