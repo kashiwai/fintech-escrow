@@ -10,12 +10,8 @@ services:
       - key: PYTHON_VERSION
         value: 3.11.0
       - key: DB_PATH
-        value: /app/data/fintech.db
+        value: /opt/render/project/src/fintech.db
       - key: AUDIT_LOG_PATH
-        value: /app/data/audit.log
+        value: /opt/render/project/src/audit.log
       - key: RENDER
         value: "true"
-    disk:
-      name: fintech-data
-      mountPath: /app/data
-      sizeGB: 1
