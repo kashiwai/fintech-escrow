@@ -1,7 +1,12 @@
 import os
 
 
-DB_PATH = os.getenv("DB_PATH", os.path.abspath("./fintech.db"))
+# Render環境では/app/dataにマウントされたディスクを使用
+if os.environ.get('RENDER'):
+    DB_PATH = "/app/data/fintech.db"
+    os.makedirs("/app/data", exist_ok=True)
+else:
+    DB_PATH = os.getenv("DB_PATH", os.path.abspath("./fintech.db"))
 WEBHOOK_SECRET = os.getenv("WEBHOOK_SECRET", "dev_secret")
 DEFAULT_CHAIN = os.getenv("DEFAULT_CHAIN", "TRC20")
 
@@ -15,7 +20,11 @@ SIM_FX_JPY_PER_USDT = float(os.getenv("SIM_FX_JPY_PER_USDT", "150.0"))
 SIM_NETWORK_FEE_USDT = float(os.getenv("SIM_NETWORK_FEE_USDT", "1.0"))
 
 # Reports output dir
-REPORTS_DIR = os.getenv("REPORTS_DIR", os.path.abspath("./reports"))
+if os.environ.get('RENDER'):
+    REPORTS_DIR = "/app/data/reports"
+    os.makedirs(REPORTS_DIR, exist_ok=True)
+else:
+    REPORTS_DIR = os.getenv("REPORTS_DIR", os.path.abspath("./reports"))
 
 # Optional Rapyd payout integration (real API)
 RAPYD_EWALLET_ID = os.getenv("RAPYD_EWALLET_ID", "")
