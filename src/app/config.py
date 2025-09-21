@@ -3,8 +3,8 @@ import os
 
 # Render環境では永続ディスクを使用
 if os.environ.get('RENDER'):
-    # 有料版では/render/dataにマウントされたディスクを使用
-    DB_DIR = "/render/data"
+    # 有料版では/app/dataにマウントされたディスクを使用
+    DB_DIR = "/app/data"
     # ディスクがマウントされているか確認
     if os.path.exists(DB_DIR):
         DB_PATH = os.path.join(DB_DIR, "fintech.db")
@@ -27,8 +27,8 @@ SIM_NETWORK_FEE_USDT = float(os.getenv("SIM_NETWORK_FEE_USDT", "1.0"))
 
 # Reports output dir
 if os.environ.get('RENDER'):
-    if os.path.exists("/render/data"):
-        REPORTS_DIR = "/render/data/reports"
+    if os.path.exists("/app/data"):
+        REPORTS_DIR = "/app/data/reports"
         os.makedirs(REPORTS_DIR, exist_ok=True)
     else:
         REPORTS_DIR = "/opt/render/project/src/reports"
