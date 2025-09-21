@@ -1889,7 +1889,7 @@ Sandbox環境で動作中
 
 def run_server(port=8080):
     """Webサーバー起動"""
-    server_address = ('', port)
+    server_address = ('0.0.0.0', port)
     httpd = HTTPServer(server_address, EscrowWebHandler)
     print(f'🚀 エスクロー管理システム起動')
     print(f'📍 アクセスURL: http://localhost:{port}')
@@ -1904,5 +1904,7 @@ def run_server(port=8080):
 
 if __name__ == "__main__":
     import sys
-    port = int(sys.argv[1]) if len(sys.argv) > 1 else 8080
+    import os
+    # Renderの環境変数PORTを優先的に使用
+    port = int(os.environ.get('PORT', sys.argv[1] if len(sys.argv) > 1 else 10000))
     run_server(port)
